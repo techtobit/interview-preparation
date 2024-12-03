@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Workers method in HTML</title>
+</head>
+<body>
+	<button onclick="startWorkers()">Load JS Script</button>
+	<div id="result"></div>
+
+	<script>
+		let worker;
+		function startWorkers() {
+			if (window.Worker) {
+				worker=new Worker('workers.js');
+				worker.onmessage= function (e){
+					document.getElementById('result').innerText=`Result : ${e.data}`
+				};
+				worker.postMessage(10);
+			}
+			else{
+				console.log('Web Workers is not supported in this browser');
+				
+			}
+		};
+	</script>
+
+</body>
+</html>
